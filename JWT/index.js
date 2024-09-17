@@ -61,7 +61,7 @@ app.get("/me", auth, function(req,res){
         return false;
     }
     })
-    if(userFound){
+    if(userFound){ 
         res.json({
             username:userFound.username,
             password:userFound.password

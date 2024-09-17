@@ -53,16 +53,16 @@ if(userFound){
 }
 })
 app.get("/me", function(req,res){
-    const token = req.headers.token
+    const token = req.headers.token //headers not header
     // const userFound = null
     // for(let i=0; i<users.length;i++){
-        //     if(users[i].token == token){
-            //         userFound = users[i]
-            //     }
-            // }
+    //     if(users[i].token == token){
+    //         userFound = users[i]
+    //     }
+    // }
     const userFound = users.find(function(u){
     if(u.token == token){
-        return u;
+        return true;
     }else{
         return false;
     }
