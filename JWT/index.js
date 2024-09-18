@@ -4,6 +4,10 @@ const JWT_SECRET = "iamYASHBOHRA"
 const app = express()
 users=[]
 app.use(express.json())
+console.log(__dirname)
+app.get("/",function(req,res){
+    res.sendFile(__dirname + "/index.html")
+})
 app.post("/sign-up",function(req,res){
 const username = req.body.username;
 const password = req.body.password;
@@ -40,18 +44,28 @@ if(userFound){
     })
 }
 })
-app.get("/me", function(req,res){
+function auth(req,res,next){
     const token = req.headers.token
-    const decodedUsername = jwt.verify(token,JWT_SECRET)  //get original username using JWT_SECRET
-    const username = decodedUsername.username
+    const decodedUsername = jwt.verify(token,JWT_SECRET)
+    if(decodedUsername.username){
+        req.username = decodedUsername.username 
+        next()
+    }else{
+        res.json({
+            msg:`You are not logged in !`
+        })
+    }
+
+}
+app.get("/me", auth, function(req,res){
     const userFound = users.find(function(u){
-    if(u.username == username){
+    if(u.username == req.username){
         return true;
     }else{
         return false;
     }
     })
-    if(userFound){
+    if(userFound){ 
         res.json({
             username:userFound.username,
             password:userFound.password
