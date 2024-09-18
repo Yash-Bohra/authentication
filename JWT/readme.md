@@ -7,3 +7,10 @@ JWTs, or JSON Web Tokens, are a compact and self-contained way to represent info
 # Codebase
 
 hit "npm i jsonwebtoken" in terminal to install dependecies
+
+#V1
+
+added a frontend to interact with backend by giving sign up,log in,log out requests.
+after signing up the frontend also shows the user details by reffering the cuurent JWT token stored in localStorage of the browser
+
+Thank you !
