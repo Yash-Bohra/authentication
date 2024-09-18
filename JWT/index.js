@@ -4,6 +4,10 @@ const JWT_SECRET = "iamYASHBOHRA"
 const app = express()
 users=[]
 app.use(express.json())
+console.log(__dirname)
+app.get("/",function(req,res){
+    res.sendFile(__dirname + "/index.html")
+})
 app.post("/sign-up",function(req,res){
 const username = req.body.username;
 const password = req.body.password;
@@ -44,7 +48,7 @@ function auth(req,res,next){
     const token = req.headers.token
     const decodedUsername = jwt.verify(token,JWT_SECRET)
     if(decodedUsername.username){
-        req.username = decodedUsername.username
+        req.username = decodedUsername.username 
         next()
     }else{
         res.json({
